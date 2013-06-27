@@ -38,26 +38,33 @@ public class Command implements CommandExecutor {
                         sender.sendMessage(plugin.prefix + " /gift <player*> <amount of item in hand*> <Yes-No> <Message>");
                         sender.sendMessage(plugin.prefix + " *=Required. Yes-No=Should this gift be sent anonymously.");
                     } else {
-                        
+
                         sender.sendMessage(plugin.prefix + " For correct usage of /gift please do /gift help");
                     }
-                } else if (args.length==2){
+                } else if (args.length == 2) {
                     Player target = plugin.getServer().getPlayerExact(args[0]);
-                    Player player=plugin.getServer().getPlayerExact(sender.getName());
-                    ItemStack hand=player.getItemInHand();
-                    int amount=hand.getAmount(); 
-                    int quantity=(Integer.parseInt(args[1]));
-                    if (amount<quantity){
-                        player.sendMessage(plugin.prefix+ " You don't have "+ quantity+" of the item.");
-                        player.sendMessage(plugin.prefix+ " Please specify a number equal to or less than: "+ amount);
+                    Player player = plugin.getServer().getPlayerExact(sender.getName());
+                    ItemStack hand = player.getItemInHand();
+                    Material m=hand.getType();
+                    int amount = hand.getAmount();
+                    int quantity = (Integer.parseInt(args[1]));
+                    if (amount < quantity) {
+                        player.sendMessage(plugin.prefix + " You don't have " + quantity + " of the item.");
+                        player.sendMessage(plugin.prefix + " Please specify a number equal to or less than: " + amount);
+                    } else {
+                        this.sendGift(player, target, m, quantity);
                     }
-                   ItemStack items=new ItemStack();
-                   
-                    
+                    }
                 }
-            }
 
+            }
+            return false;
         }
-        return false;
+
+    private void sendGift(Player player, Player target, Material m, int Quantity) {
+       if (target.isOnline()){
+       }else{
+           //do da base file stuffs
+       }
     }
-}
+    }
