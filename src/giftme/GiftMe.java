@@ -10,7 +10,7 @@ public String prefix;
     public final static Logger logger = Logger.getLogger("minecraft");
         public void onDesable() {
         PluginDescriptionFile pdf = this.getDescription();
-        getCommand("gift").setExecutor(new Comamnd(this)); //Command Executor
+        getCommand("gift").setExecutor(new Command(this)); //Command Executor
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Disabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
     }
 
