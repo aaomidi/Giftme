@@ -61,8 +61,10 @@ public class Command implements CommandExecutor {
             return false;
         }
 
-    private void sendGift(Player player, Player target, Material m, int Quantity) {
+    private void sendGift(Player player, Player target, Material m, int quantity) {
        if (target.isOnline()){
+           ItemStack iss= new ItemStack(m,quantity);
+           target.getInventory().addItem(iss);
        }else{
            //do da base file stuffs
        }
