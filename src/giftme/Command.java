@@ -6,6 +6,7 @@ package giftme;
 
 import java.util.List;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -20,6 +21,8 @@ import org.bukkit.inventory.ItemStack;
 public class Command implements CommandExecutor {
 
     private GiftMe plugin; //Just a pointer
+    public String message = null;
+    Boolean anon = false;
 
     public Command(GiftMe plugin) {
         this.plugin = plugin;
@@ -42,10 +45,10 @@ public class Command implements CommandExecutor {
                         sender.sendMessage(plugin.prefix + " For correct usage of /gift please do /gift help");
                     }
                 } else if (args.length == 2) {
-                    Player target = plugin.getServer().getPlayerExact(args[0]);
-                    Player player = plugin.getServer().getPlayerExact(sender.getName());
+                    OfflinePlayer target = plugin.getServer().getOfflinePlayer(args[0]);
+                    Player player = plugin.getServer().getPlayerExact(sender);
                     ItemStack hand = player.getItemInHand();
-                    Material m=hand.getType();
+                    Material m = hand.getType();
                     int amount = hand.getAmount();
                     int quantity = (Integer.parseInt(args[1]));
                     if (amount < quantity) {
@@ -54,19 +57,36 @@ public class Command implements CommandExecutor {
                     } else {
                         this.sendGift(player, target, m, quantity);
                     }
-                    }
                 }
-
             }
-            return false;
-        }
 
-    private void sendGift(Player player, Player target, Material m, int quantity) {
-       if (target.isOnline()){
-           ItemStack iss= new ItemStack(m,quantity);
-           target.getInventory().addItem(iss);
-       }else{
-           //do da base file stuffs
-       }
+        }
+        return false;
     }
+
+    private void sendGift(Player player, OfflinePlayer target, Material m, int quantity) {
+        if (target.isOnline()) {
+            Player targetOn = target.getPlayer();
+            ItemStack iss = new ItemStack(m, quantity);
+            targetOn.getInventory().addItem(iss);
+            if (anon = false) {//anonymous messaging
+
+                if (message == null) {
+                    targetOn.sendMessage(plugin.prefix + " Hey " + targetOn.getName() + ", " + player.getName() + " sent you a gift :D");
+                } else {
+                    targetOn.sendMessage(plugin.prefix + " Hey " + targetOn.getName() + ", " + player.getName() + " sent you a gift :D");
+                    targetOn.sendMessage(plugin.prefix + " " + message);
+                }
+            } else {
+                if (message == null) {
+                    targetOn.sendMessage(plugin.prefix + " Hey " + targetOn.getName() + ", you recieved a gift");
+                } else {
+                    targetOn.sendMessage(plugin.prefix + " Hey " + targetOn.getName() + ", you recieved a gift");
+                    targetOn.sendMessage(plugin.prefix + " " + message);
+                }
+            }
+        } else {
+            //do da base file stuffs
+        }
     }
+}
