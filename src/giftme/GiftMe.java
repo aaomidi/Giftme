@@ -19,7 +19,7 @@ public String prefix;
         saveDefaultConfig();
         PluginDescriptionFile pdf = this.getDescription();
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
-        prefix=getConfig().getString("Prefix"); //Config Setup
+        prefix=getConfig().getString("Prefix"+":"); //Config Setup
     }
     
 }

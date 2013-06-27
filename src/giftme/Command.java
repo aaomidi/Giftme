@@ -57,6 +57,35 @@ public class Command implements CommandExecutor {
                     } else {
                         this.sendGift(player, target, m, quantity);
                     }
+                } else if (args.length == 3) {
+                    OfflinePlayer target = plugin.getServer().getOfflinePlayer(args[0]);
+                    Player player = plugin.getServer().getPlayerExact(sender);
+                    ItemStack hand = player.getItemInHand();
+                    Material m = hand.getType();
+                    int amount = hand.getAmount();
+                    int quantity = (Integer.parseInt(args[1]));
+                    this.anon=Boolean.parseBoolean(args[2]);
+                    if (amount < quantity) {
+                        player.sendMessage(plugin.prefix + " You don't have " + quantity + " of the item.");
+                        player.sendMessage(plugin.prefix + " Please specify a number equal to or less than: " + amount);
+                    } else {
+                        this.sendGift(player, target, m, quantity);
+                    }
+                }else if (args.length==4){ //prob has to change cause of the message :<
+                    OfflinePlayer target = plugin.getServer().getOfflinePlayer(args[0]);
+                    Player player = plugin.getServer().getPlayerExact(sender);
+                    ItemStack hand = player.getItemInHand();
+                    Material m = hand.getType();
+                    int amount = hand.getAmount();
+                    int quantity = (Integer.parseInt(args[1]));
+                    this.anon=Boolean.parseBoolean(args[2]);
+                    //I have no clue how to set the message now :<
+                    if (amount < quantity) {
+                        player.sendMessage(plugin.prefix + " You don't have " + quantity + " of the item.");
+                        player.sendMessage(plugin.prefix + " Please specify a number equal to or less than: " + amount);
+                    } else {
+                        this.sendGift(player, target, m, quantity);
+                    }
                 }
             }
 
