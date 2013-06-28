@@ -6,11 +6,13 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class GiftMe extends JavaPlugin {
-public String prefix;
+
+    public String prefix;
     public final static Logger logger = Logger.getLogger("minecraft");
-        public void onDisable() {
+
+    public void onDisable() {
         PluginDescriptionFile pdf = this.getDescription();
-        getCommand("gift").setExecutor(new Command(this)); //Command Executor
+
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Disabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
     }
 
@@ -18,8 +20,8 @@ public String prefix;
     public void onEnable() {
         saveDefaultConfig();
         PluginDescriptionFile pdf = this.getDescription();
+        getCommand("gift").setExecutor(new Command(this)); //Command Executor
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
-        prefix=getConfig().getString("Prefix"+":"); //Config Setup
+        prefix = getConfig().getString("Prefix" + ":"); //Config Setup
     }
-    
 }
